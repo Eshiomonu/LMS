@@ -1,0 +1,114 @@
+:root {
+    /* Brand Colors */
+    --aspro-primary: #5B2EED;
+    --aspro-primary-dark: #4A21C9;
+    --aspro-primary-light: #E9E2FF;
+
+    /* Accent */
+    --aspro-accent-blue: #2D9CDB;
+
+    /* Utility Colors */
+    --aspro-success: #27AE60;
+    --aspro-warning: #F2C94C;
+    --aspro-danger: #EB5757;
+
+    /* Neutrals */
+    --aspro-dark: #1B1D24;
+    --aspro-grey: #7E8299;
+    --aspro-border: #E1E5EB;
+    --aspro-light: #F8F9FC;
+    --aspro-white: #FFFFFF;
+
+    /* Typography */
+    --aspro-font: "Inter", sans-serif;
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--aspro-font);
+    background-color: var(--aspro-light);
+    color: var(--aspro-dark);
+    line-height: 1.6;
+}
+
+/* ------------------------------
+   Typography
+------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+p {
+    font-size: 16px;
+    color: var(--aspro-grey);
+}
+
+a {
+    color: var(--aspro-primary);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--aspro-primary-dark);
+}
+
+/* ------------------------------
+   NAVBAR
+------------------------------ */
+.navbar-aspro {
+    background: var(--aspro-white);
+    padding: 12px 0;
+}
+
+.navbar-aspro .nav-link {
+    font-weight: 500;
+    margin-right: 18px;
+    padding: 8px 5px;
+}
+
+.navbar-aspro .nav-link.active {
+    color: var(--aspro-primary) !important;
+    border-bottom: 2px solid var(--aspro-primary);
+}
+
+.navbar-aspro .navbar-toggler {
+    border: none;
+}
+
+.navbar-aspro .dropdown-menu {
+    border-radius: 10px;
+}
+
+/* LIGHT MODE */
+body.aspro-light {
+    background: var(--aspro-light);
+    color: var(--aspro-dark);
+}
+body.aspro-light .navbar-aspro {
+    background: #FFFFFF;
+}
+
+/* DARK MODE
+body.aspro-dark {
+    background: #0f0f12;
+    color: #f1f1f1;
+}
+body.aspro-dark .navbar-aspro {
+    background: #15151a;
+}
+body.aspro-dark .nav-link {
+    color: #eee !important;
+}
+body.aspro-dark .nav-link.active {
+    color: var(--aspro-primary) !important;
+}
+body.aspro-dark .dropdown-menu {
+    background: #1f1f26;
+    color: #fff;
+} */
