@@ -8,49 +8,29 @@ use App\Models\User;
 
 class CoursePolicy
 {
-    /**
-     * WHY:
-     * Prevent students from seeing admin course management
-     */
-    public function viewAny(User $user): bool
+    public function before($admin)
     {
-        return $user->isAdmin();
+        return auth('admin')->check();
     }
 
-    /**
-     * WHY:
-     * Students should only view published courses (handled in controller)
-     * Admins can view all
-     */
-    public function view(User $user, Course $course): bool
+    public function viewAny()
     {
-        return $user->isAdmin();
+        return true;
     }
 
-    /**
-     * WHY:
-     * Only admins create courses (business rule)
-     */
-    public function create(User $user): bool
+    public function create()
     {
-        return $user->isAdmin();
+        return true;
     }
 
-    /**
-     * WHY:
-     * Prevent horizontal privilege escalation
-     */
-    public function update(User $user, Course $course): bool
+    public function update()
     {
-        return $user->isAdmin();
+        return true;
     }
 
-    /**
-     * WHY:
-     * Deleting a course is destructive and irreversible
-     */
-    public function delete(User $user, Course $course): bool
+    public function delete()
     {
-        return $user->isAdmin();
+        return true;
     }
 }
+

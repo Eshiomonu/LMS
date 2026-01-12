@@ -22,11 +22,19 @@
                         Dashboard
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700">
-                        Courses
-                    </a>
-                </li>
+              <li>
+    <span class="block py-2 px-4 text-gray-400 uppercase text-xs">
+        Course Management
+    </span>
+</li>
+
+<li>
+    <a href="{{ route('admin.courses.index') }}"
+       class="block py-2 px-4 rounded
+       {{ request()->routeIs('admin.courses.*') ? 'bg-gray-700' : 'hover:bg-gray-700' }}">
+        Courses
+    </a>
+</li>
                 <!-- Add more sidebar links here -->
             </ul>
         </nav>
@@ -56,6 +64,19 @@
         <footer class="bg-white text-center p-4 border-t border-gray-300">
             &copy; {{ date('Y') }} LMS Admin Panel
         </footer>
+
+        @if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+        {{ session('error') }}
+    </div>
+@endif
+
     </div>
 
 </body>

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Course;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\CourseController;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -18,6 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/courses', function () {
+    return view('courses.index', [
+        'courses' => Course::latest()->paginate(9)
+    ]);
+})->name('courses.index');
+
 /*
 |--------------------------------------------------------------------------
 | Admin Auth Routes (PUBLIC)
@@ -29,11 +37,16 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 
 Route::prefix('admin')
     ->middleware('auth:admin')
+    ->name('admin.')
     ->group(function () {
+
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('admin.dashboard');
+        })->name('dashboard');
+
+        Route::resource('courses', CourseController::class);
     });
+
 
 
 
