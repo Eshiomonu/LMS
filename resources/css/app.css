@@ -1,3 +1,43 @@
+/* ================================
+   TAILWIND CORE (MUST BE FIRST)
+================================ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ================================
+   CSS VARIABLES (DESIGN TOKENS)
+================================ */
+:root {
+    --aspro-primary: #5B2EED;
+    --aspro-primary-dark: #4A21C9;
+    --aspro-primary-light: #E9E2FF;
+
+    --aspro-accent-blue: #2D9CDB;
+
+    --aspro-success: #27AE60;
+    --aspro-warning: #F2C94C;
+    --aspro-danger: #EB5757;
+
+    --aspro-dark: #1B1D24;
+    --aspro-grey: #7E8299;
+    --aspro-border: #E1E5EB;
+    --aspro-light: #F8F9FC;
+    --aspro-white: #FFFFFF;
+
+    --aspro-font: "Inter", sans-serif;
+}
+
+/* ================================
+   BASE OVERRIDES
+================================ */
+body {
+    font-family: var(--aspro-font);
+}
+
+/* ================================
+   CUSTOM COMPONENTS (OPTIONAL)
+================================ */
+.navbar-aspro {
+    background: var(--aspro-white);
+}

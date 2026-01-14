@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Course;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\CourseController;
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+
+Route::get('/', function () {return view('pages.home');})->name('home');
+Route::get('/about', function () {return view('pages.about');})->name('about');
+Route::get('/contact', function () {return view('pages.contact');})->name('contact');
+// Route::get('/', function () {return view('pages.home');})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,11 +21,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/courses', function () {
-    return view('courses.index', [
-        'courses' => Course::latest()->paginate(9)
-    ]);
-})->name('courses.index');
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout/{course}', [App\Http\Controllers\CourseController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout/{course}/process', [App\Http\Controllers\CourseController::class, 'processCheckout'])->name('checkout.process');
+});
+
+Route::get('/courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses.index');
+Route::get('/courses/{course}', [App\Http\Controllers\CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/{course}/enroll', [App\Http\Controllers\CourseController::class, 'enroll'])->name('courses.enroll')->middleware('auth'); 
+
+
 
 /*
 |--------------------------------------------------------------------------
