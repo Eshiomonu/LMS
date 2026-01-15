@@ -1,14 +1,12 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Course;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\CourseController;
 
-Route::get('/', function () {
-    return view('pages.home');
-})->name('home');
+// Route::get('/', function () {
+//     return view('pages.home');
+// })->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -20,11 +18,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/courses', function () {
-    return view('courses.index', [
-        'courses' => Course::latest()->paginate(9)
-    ]);
-})->name('courses.index');
 
 /*
 |--------------------------------------------------------------------------
@@ -37,17 +30,27 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 
 Route::prefix('admin')
     ->middleware('auth:admin')
-    ->name('admin.')
     ->group(function () {
-
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('dashboard');
-
-        Route::resource('courses', CourseController::class);
+        })->name('admin.dashboard');
     });
 
 
 
-
 require __DIR__.'/auth.php';
+
+
+
+// Home Page
+Route::get('/', [CourseController::class, 'home'])->name('home');
+
+// Courses Listing
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+
+// Single Course Page
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
+// Enrollment (requires login)
+Route::middleware('auth')->get('/courses/{id}/enroll', [CourseController::class, 'enroll'])->name('courses.enroll');
+
