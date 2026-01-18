@@ -5,4 +5,5 @@
 
 @section('content')
     <x-home.hero />
+    <x-home.trust-metrics />
 @endsection
