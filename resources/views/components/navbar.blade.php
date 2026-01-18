@@ -9,7 +9,7 @@
                aria-label="{{ config('app.name') }} home">
 
                 <img
-                    src="{{ asset('images/logo.png') }}"
+                    src="{{ asset('images/logo.jpeg') }}"
                     alt="{{ config('app.name') }} logo"
                     class="h-9 w-auto"
                     loading="eager"
@@ -67,12 +67,12 @@
                 <!-- CTA -->
                 <a href="{{ route('register') }}"
                    class="inline-flex items-center justify-center
-                          rounded-lg bg-[var(--aspro-primary)]
+                          rounded-lg bg-(--aspro-primary)
                           px-5 py-2.5 text-sm font-semibold text-white
                           shadow-sm transition
-                          hover:bg-[var(--aspro-primary-dark)]
+                          hover:bg-(--aspro-primary-dark)]
                           focus:outline-none focus:ring-2 focus:ring-offset-2
-                          focus:ring-[var(--aspro-primary)]">
+                          focus:ring-(--aspro-primary)">
                     Get Started
                 </a>
             </div>
@@ -106,7 +106,7 @@
                         <a href="{{ route('home') }}"
                            class="block font-medium
                            {{ request()->routeIs('home')
-                               ? 'text-[var(--aspro-primary)] border-l-4 border-[var(--aspro-primary)] pl-3'
+                               ? 'text-(--aspro-primary) border-l-4 border-(--aspro-primary) pl-3'
                                : 'text-gray-700' }}">
                             Home
                         </a>
@@ -114,7 +114,7 @@
                         <a href="{{ route('about') }}"
                            class="block font-medium
                            {{ request()->routeIs('about')
-                               ? 'text-[var(--aspro-primary)] border-l-4 border-[var(--aspro-primary)] pl-3'
+                               ? 'text-(--aspro-primary)] border-l-4 border-(--aspro-primary) pl-3'
                                : 'text-gray-700' }}">
                             About
                         </a>
@@ -122,7 +122,7 @@
                         <a href="{{ route('courses.index') }}"
                            class="block font-medium
                            {{ request()->routeIs('courses.*')
-                               ? 'text-[var(--aspro-primary)] border-l-4 border-[var(--aspro-primary)] pl-3'
+                               ? 'text-(--aspro-primary) border-l-4 border-(--aspro-primary) pl-3'
                                : 'text-gray-700' }}">
                             Courses
                         </a>
@@ -130,16 +130,16 @@
                         <a href="{{ route('contact') }}"
                            class="block font-medium
                            {{ request()->routeIs('contact')
-                               ? 'text-[var(--aspro-primary)] border-l-4 border-[var(--aspro-primary)] pl-3'
+                               ? 'text-(--aspro-primary) border-l-4 border-(--aspro-primary) pl-3'
                                : 'text-gray-700' }}">
                             Contact
                         </a>
 
                         <a href="{{ route('register') }}"
                            class="block text-center mt-4 rounded-lg
-                                  bg-[var(--aspro-primary)]
+                                  bg-(--aspro-primary)
                                   px-5 py-3 text-sm font-semibold text-white
-                                  hover:bg-[var(--aspro-primary-dark)]">
+                                  hover:bg-(--aspro-primary-dark)">
                             Get Started
                         </a>
                     </div>
