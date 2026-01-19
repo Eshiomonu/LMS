@@ -1,12 +1,18 @@
 <?php
-
+use App\Models\Course;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\CourseController;
 
 
-Route::get('/', function () {return view('pages.home');})->name('home');
+Route::get('/', function () {
+    $courses = Course::latest()
+        ->take(6)
+        ->get();
+return view('pages.home',  compact('courses'));
+
+})->name('home');
 Route::get('/about', function () {return view('pages.about');})->name('about');
 Route::get('/contact', function () {return view('pages.contact');})->name('contact');
 // Route::get('/', function () {return view('pages.home');})->name('home');

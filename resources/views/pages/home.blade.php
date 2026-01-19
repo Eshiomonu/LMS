@@ -6,4 +6,6 @@
 @section('content')
     <x-home.hero />
     <x-home.trust-metrics />
+
+    <x-home.featured-courses :courses="$courses" />
 @endsection

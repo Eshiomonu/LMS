@@ -9,37 +9,34 @@ return new class extends Migration {
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-
-            // BASIC INFO
             $table->string('title');
+            $table->string('slug')->unique();
             $table->string('short_description');
             $table->text('long_description');
-
-            // LIST FIELDS (JSON)
-            $table->json('who_this_course_is_for');
-            $table->json('curriculum');
-            $table->json('what_you_get');
-            $table->json('why_train_with_us');
-
-            // COURSE DETAILS
-            $table->unsignedInteger('duration_hours');
-            $table->unsignedInteger('duration_weeks');
+            $table->json('who_this_course_is_for')->nullable();
+            $table->json('curriculum')->nullable();
+            $table->json('what_you_get')->nullable();
+            $table->json('why_train_with_us')->nullable();
+            $table->unsignedSmallInteger('duration_hours')->nullable();
+            $table->unsignedSmallInteger('duration_weeks')->nullable();
 
             $table->enum('mode', ['live_online', 'virtual', 'onsite']);
-
-            $table->string('schedule');
-            $table->string('time');
-
-            // PRICING
+            $table->string('schedule')->nullable();
+            $table->string('time')->nullable();
             $table->decimal('course_fee', 10, 2);
-
-            // FLAGS
-            $table->boolean('recording')->default(false);
+            $table->string('currency', 3)->default('NGN');
+            $table->unsignedInteger('enrollment_count')->default(0);
+            $table->decimal('average_rating', 3, 2)->default(0.00);
+            $table->unsignedInteger('reviews_count')->default(0);
+            $table->boolean('recording_available')->default(false);
             $table->boolean('is_featured')->default(false);
 
-            // MEDIA
+            $table->enum('status', ['draft', 'published', 'archived'])
+                  ->default('draft');
             $table->string('card_image');
-            $table->string('hero_image');
+            $table->string('hero_image')->nullable();
+            $table->index(['is_featured', 'status']);
+            $table->index('average_rating');
 
             $table->timestamps();
         });
@@ -50,4 +47,3 @@ return new class extends Migration {
         Schema::dropIfExists('courses');
     }
 };
-
