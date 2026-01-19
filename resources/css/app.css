@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-    --aspro-primary: #5B2EED;
-    --aspro-primary-dark: #4A21C9;
+    --aspro-primary: #0B2F53;
+    --aspro-primary-dark: #3BB3C4;
     --aspro-primary-light: #E9E2FF;
 
     --aspro-accent-blue: #2D9CDB;

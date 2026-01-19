@@ -8,4 +8,6 @@
     <x-home.trust-metrics />
 
     <x-home.featured-courses :courses="$courses" />
+    <x-home.learning-paths />
+
 @endsection
