@@ -5,7 +5,7 @@
 
             {{-- Brand --}}
             <div>
-                <img src="{{ asset('images/logo.png') }}" alt="AsproHubs Logo" class="h-10 mb-4">
+                <img src="{{ asset('images/logo.jpeg') }}" alt="AsproHubs Logo" class="h-10 mb-4">
 
                 <p class="text-gray-600 text-sm leading-relaxed">
                     AsproHubs is a professional learning platform for individuals and organizations.
@@ -60,9 +60,9 @@
                 <form class="flex">
                     <input type="email"
                            placeholder="Enter your email"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                           class="w-full px-4 py-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-(--aspro-primary)">
 
-                    <button class="bg-indigo-600 text-white px-6 py-3 rounded-r-md hover:bg-indigo-700">
+                    <button class="bg-(--aspro-primary) text-white px-6 py-3 rounded-r-md hover:opacity-90 transition-opacity">
                         Subscribe
                     </button>
                 </form>
