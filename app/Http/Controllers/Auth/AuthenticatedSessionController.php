@@ -3,56 +3,65 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
-    public function create(): View
+    // GET /login
+    public function create()
     {
+        if (Auth::guard('web')->check()) {
+            return redirect()->route('student.dashboard');
+        }
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function store(LoginRequest $request): RedirectResponse
+    // POST /login
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $request->validate([
+            'email'    => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ]);
+
+        if (! Auth::guard('web')->attempt(
+            $request->only('email', 'password'),
+            $request->boolean('remember')
+        )) {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
+        }
+
+        $user = Auth::user();
+
+        // Block suspended accounts immediately
+        if (! $user->is_active || $user->status === 'suspended') {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'email' => 'Your account has been suspended. Please contact support.',
+            ]);
+        }
 
         $request->session()->regenerate();
 
-     $user = Auth::user();
+        // Redirect back to the course page if they came from one
+        $redirectTo = $request->input('redirect_to');
+        if ($redirectTo && str_starts_with($redirectTo, url('/'))) {
+            return redirect($redirectTo);
+        }
 
-
-if ($user->hasRole('admin')) {
-    return redirect()->route('admin.dashboard');
-}
-
-if ($user->hasRole('instructor')) {
-    return redirect('/instructor/dashboard');
-}
-
-return redirect('/dashboard');
+        return redirect()->intended(route('student.dashboard'));
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): RedirectResponse
+    // POST /logout
+    public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

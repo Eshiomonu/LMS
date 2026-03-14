@@ -2,24 +2,43 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // ── 1. Admin account ──────────────────────────────────
+        Admin::updateOrCreate(
+            ['email' => 'admin@asprohubs.com'],
+            [
+                'name'     => 'AsproHubs Admin',
+                'email'    => 'admin@asprohubs.com',
+                'password' => Hash::make('password'),
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // ── 2. Demo student account ───────────────────────────
+        User::updateOrCreate(
+            ['email' => 'student@asprohubs.com'],
+            [
+                'name'      => 'Demo Student',
+                'email'     => 'student@asprohubs.com',
+                'password'  => Hash::make('password'),
+                'phone'     => '08000000000',
+                'role'      => 'student',
+                'status'    => 'approved',
+                'is_active' => true,
+            ]
+        );
+
+        // ── 3. Categories then Courses ────────────────────────
+        $this->call([
+            CategorySeeder::class,
+            CourseSeeder::class,
         ]);
     }
 }

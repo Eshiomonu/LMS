@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
+
+    // ── Table ─────────────────────────────────────────────────
+
+    protected $table = 'admins';
+
+    // ── Fillable ──────────────────────────────────────────────
 
     protected $fillable = [
         'name',
@@ -16,8 +21,33 @@ class Admin extends Authenticatable
         'password',
     ];
 
+    // ── Hidden ────────────────────────────────────────────────
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    // ── Casts ─────────────────────────────────────────────────
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    // ── Accessors ─────────────────────────────────────────────
+
+    /**
+     * Generates an initials-based avatar for the admin.
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        return 'https://ui-avatars.com/api/?'
+            . http_build_query([
+                'name'       => $this->name,
+                'background' => '0f172a',
+                'color'      => 'ffffff',
+                'bold'       => 'true',
+                'size'       => '128',
+            ]);
+    }
 }
